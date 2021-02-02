@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Character : MonoBehaviour
 {
@@ -32,6 +33,22 @@ public class Character : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        PlayerMovement();
+
+        if (healthCount <= 0)
+        {
+            SceneManager.LoadScene("LoseScene");
+        }
+
+        if (coinCount >= 2)
+        {
+            SceneManager.LoadScene("WinScene");
+        }
+
+    }
+
+    private void PlayerMovement()
     {
         float hVelocity = 0;
         float vVelocity = 0;
@@ -66,11 +83,11 @@ public class Character : MonoBehaviour
             countJump = 1;
         }
 
-        hVelocity = Mathf.Clamp(rb.velocity.x + hVelocity, -5,5);
+        hVelocity = Mathf.Clamp(rb.velocity.x + hVelocity, -5, 5);
 
-        rb.velocity = new Vector2(hVelocity,rb.velocity.y + vVelocity);
-
+        rb.velocity = new Vector2(hVelocity, rb.velocity.y + vVelocity);
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Mace")
