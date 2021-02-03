@@ -58,7 +58,13 @@ public class Character : MonoBehaviour
             hVelocity = -moveSpeed;
             animator.SetFloat("xVelocity", Mathf.Abs(hVelocity));
             transform.localScale = new Vector3(-1, 1, 1);
-            audioSource.PlayOneShot(AudioClipArr[1], 0.5f);
+            
+
+            if(audioSource.isPlaying == false)
+            {
+                audioSource.PlayOneShot(AudioClipArr[1], 0.5f);
+            }
+            
         }
         else if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
@@ -69,13 +75,17 @@ public class Character : MonoBehaviour
             hVelocity = moveSpeed;
             animator.SetFloat("xVelocity", Mathf.Abs(hVelocity));
             transform.localScale = new Vector3(1, 1, 1);
-            audioSource.PlayOneShot(AudioClipArr[1], 0.5f);
+
+            if (audioSource.isPlaying == false)
+            {
+                audioSource.PlayOneShot(AudioClipArr[1], 0.5f);
+            }
         }
         else if (Input.GetKeyUp(KeyCode.RightArrow))
         {
             animator.SetFloat("xVelocity", 0);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && countJump == 0)
+        if (Input.GetKeyDown(KeyCode.Space)&& countJump == 0)
         {
             vVelocity = jumpforce;
             animator.SetTrigger("JumpTrigger");
